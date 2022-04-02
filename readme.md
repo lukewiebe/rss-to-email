@@ -1,5 +1,7 @@
 # RSS to Email
 
+Hello! This is my first ever Python project. It's mostly an excuse to learn Python, but it's also something I want to use.
+
 This will become an automated daily digest that will email me new articles from my rss feeds.
 
 ## Current State
