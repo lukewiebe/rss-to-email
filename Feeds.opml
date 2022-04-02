@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="2.0">
+<head>
+<title>Feeds</title>
+</head>
+<body>
+<outline title="And now it’s all this" htmlUrl="https://leancrew.com/all-this/" text="And now it’s all this" xmlUrl="https://leancrew.com/all-this/feed/" type="rss" />
+<outline title="Eternal Storms Software's Blog" htmlUrl="https://blog.eternalstorms.at" xmlUrl="https://blog.eternalstorms.at/feed" text="Eternal Storms Software's Blog" type="rss" />
+<outline type="rss" text="iA" xmlUrl="https://ia.net/feed" title="iA" htmlUrl="https://ia.net" />
+<outline htmlUrl="https://inessential.com/" xmlUrl="https://inessential.com/xml/rss.xml" type="rss" title="inessential.com" text="inessential.com" />
+<outline title="Lux" htmlUrl="https://lux.camera" xmlUrl="https://lux.camera/feed/" type="rss" text="Lux" />
+<outline text="MacSparky" title="MacSparky" htmlUrl="https://www.macsparky.com" type="rss" xmlUrl="https://www.macsparky.com/feed" />
+<outline xmlUrl="https://www.macstories.net/feed/" title="MacStories" htmlUrl="https://www.macstories.net" type="rss" text="MacStories" />
+<outline htmlUrl="https://marco.org/" type="rss" xmlUrl="http://marco.org/rss" title="Marco.org" text="Marco.org" />
+<outline type="rss" title="On my Om" text="On my Om" htmlUrl="https://om.co" xmlUrl="https://om.co/feed/" />
+<outline type="rss" title="pketh.org" text="pketh.org" xmlUrl="http://pketh.org/feed.xml" htmlUrl="http://pketh.org" />
+<outline title="Sam Curry" type="rss" text="Sam Curry" htmlUrl="https://samcurry.net" xmlUrl="https://samcurry.net/feed/" />
+<outline type="rss" title="Six Colors" htmlUrl="https://sixcolors.com" xmlUrl="http://feedpress.me/sixcolors?type=xml" text="Six Colors" />
+<outline title="The Appademic" xmlUrl="https://appademic.tech/feed/" type="rss" htmlUrl="https://appademic.tech" text="The Appademic" />
+<outline title="ThoughtAsylum" type="rss" xmlUrl="https://www.thoughtasylum.com/atom.xml" text="ThoughtAsylum" htmlUrl="https://www.thoughtasylum.com/" />
+</body>
+</opml>
