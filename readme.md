@@ -2,11 +2,11 @@
 
 Hello! This is my first ever Python project. It's mostly an excuse to learn Python, but it's also something I want to use.
 
-This will become an automated daily digest that will email me new articles from my rss feeds.
+This will become an automated daily digest that will email me new articles from my RSS feeds.
 
 ## Current State
 
-`test_feed_response.py` is now working. It dumps the response from ia.net's rss feed into `samplefeed.xml` so I have sample data to work with.
+`test_feed_response.py` is now working. It dumps the response from ia.net's RSS feed into `samplefeed.xml` so I have sample data to work with.
 
 Parsing `Feeds.opml` is working in `script.py`.
 
