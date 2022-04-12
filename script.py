@@ -1,7 +1,7 @@
 # script
 
 # Extract feed urls and titles.
-# Result is a list of dicts with keys: 'title', 'url'
+# Result is a list of urls.
 
 from xml.etree import ElementTree as ET
 
@@ -17,6 +17,15 @@ def extract_rss_urls_from_opml(filename):
     return urls
 
 urls = extract_rss_urls_from_opml('Feeds.opml')
-print(urls) # test feed extraction
+print(len(urls)) # test feed extraction
 
+# Hit each url with a GET request.
 
+import requests
+first_lines = [] # list to count responses
+
+for url in urls:
+	response = requests.get(url)
+	# add the first line of each response to first_lines list
+	first_lines.append(response.text.partition('\n')[0])
+print(len(first_lines)) # compare to number of urls
