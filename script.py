@@ -28,4 +28,6 @@ for url in urls:
 	response = requests.get(url)
 	# add the first line of each response to first_lines list
 	first_lines.append(response.text.partition('\n')[0])
+
 print("Number of responses: " + str(len(first_lines))) # compare to number of urls
+
