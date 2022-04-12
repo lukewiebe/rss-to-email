@@ -17,7 +17,7 @@ def extract_rss_urls_from_opml(filename):
     return urls
 
 urls = extract_rss_urls_from_opml('Feeds.opml')
-print(len(urls)) # test feed extraction
+print("Number of URLs to check: " + str(len(urls))) # test feed extraction
 
 # Hit each url with a GET request.
 
@@ -28,4 +28,4 @@ for url in urls:
 	response = requests.get(url)
 	# add the first line of each response to first_lines list
 	first_lines.append(response.text.partition('\n')[0])
-print(len(first_lines)) # compare to number of urls
+print("Number of responses: " + str(len(first_lines))) # compare to number of urls
