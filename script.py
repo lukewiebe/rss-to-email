@@ -4,6 +4,9 @@
 # Result is a list of urls.
 
 from xml.etree import ElementTree as ET
+import requests
+import time
+import feedparser
 
 def extract_rss_urls_from_opml(filename):
     urls = [] # empty array for output
@@ -21,7 +24,6 @@ print("Number of URLs to check: " + str(len(urls))) # test feed extraction
 
 # Hit each url with a GET request.
 
-import requests
 first_lines = [] # list to count responses
 
 for url in urls:
@@ -31,3 +33,16 @@ for url in urls:
 
 print("Number of responses: " + str(len(first_lines))) # compare to number of urls
 
+# get current time and convert to Unix time
+current_time = time.mktime(time.localtime())
+
+for url in urls:
+	d = feedparser.parse(url)
+	published_time = d.entries[0].published_parsed
+	# Convert to Unix time
+	published_time = time.mktime(published_time)
+	elapsed_time = current_time - published_time
+	if elapsed_time < 86400:
+		# Include in digest
+	else if elapsed_time > 86400:
+		# Do not include in digest
