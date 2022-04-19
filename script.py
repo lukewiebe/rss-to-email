@@ -7,6 +7,10 @@ from xml.etree import ElementTree as ET
 import requests
 import time
 import feedparser
+import logging
+
+# Set logging to print debug messages
+logging.basicConfig(level=logging.DEBUG)
 
 def extract_rss_urls_from_opml(filename):
     urls = [] # empty array for output
@@ -20,29 +24,36 @@ def extract_rss_urls_from_opml(filename):
     return urls
 
 urls = extract_rss_urls_from_opml('Feeds.opml')
-print("Number of URLs to check: " + str(len(urls))) # test feed extraction
+logging.debug("Number of URLs to check: " + str(len(urls))) # test feed extraction
 
 # Hit each url with a GET request.
 
-first_lines = [] # list to count responses
+# Commented this out because feedparser handles fetching the contents of feeds.
 
-for url in urls:
-	response = requests.get(url)
-	# add the first line of each response to first_lines list
-	first_lines.append(response.text.partition('\n')[0])
-
-print("Number of responses: " + str(len(first_lines))) # compare to number of urls
+# first_lines = [] # list to count responses
+# 
+# for url in urls:
+# 	response = requests.get(url)
+# 	# add the first line of each response to first_lines list
+# 	first_lines.append(response.text.partition('\n')[0])
+# 
+# logging.debug("Number of responses: " + str(len(first_lines))) # compare to number of urls
 
 # get current time and convert to Unix time
+feedcounter = 0
 current_time = time.mktime(time.localtime())
 
 for url in urls:
+	logging.debug("Current value of feeds with new entries: " + str(feedcounter))
 	d = feedparser.parse(url)
+	logging.debug(f"Parsing {d.feed.link}...")
 	published_time = d.entries[0].published_parsed
 	# Convert to Unix time
 	published_time = time.mktime(published_time)
 	elapsed_time = current_time - published_time
 	if elapsed_time < 86400:
-		# Include in digest
-	else if elapsed_time > 86400:
+		feedcounter += 1
+# 	elif elapsed_time > 86400:
 		# Do not include in digest
+
+logging.debug("Number of Feeds with new entries: " + str(feedcounter))
