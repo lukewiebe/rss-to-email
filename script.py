@@ -44,16 +44,26 @@ feedcounter = 0
 current_time = time.mktime(time.localtime())
 
 for url in urls:
-	logging.debug("Current value of feeds with new entries: " + str(feedcounter))
 	d = feedparser.parse(url)
-	logging.debug(f"Parsing {d.feed.link}...")
+	if d.feed:
+		logging.debug(f"Parsing {d.feed.link}...")
+#	else:
+		# Throw an error, feed does not exist
+
+	# check existence of elements
+
+
 	published_time = d.entries[0].published_parsed
 	# Convert to Unix time
 	published_time = time.mktime(published_time)
+
 	elapsed_time = current_time - published_time
 	if elapsed_time < 86400:
+		print(f"{d.feed.link} has a new post.")
 		feedcounter += 1
 # 	elif elapsed_time > 86400:
 		# Do not include in digest
 
 logging.debug("Number of Feeds with new entries: " + str(feedcounter))
+
+
