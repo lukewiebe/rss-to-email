@@ -24,45 +24,33 @@ def extract_rss_urls_from_opml(filename):
     return urls
 
 urls = extract_rss_urls_from_opml('Feeds.opml')
-logging.debug("Number of URLs to check: " + str(len(urls))) # test feed extraction
+# Test that feeds have been extracted from Feeds.opml
+logging.debug("Number of URLs to check: " + str(len(urls)))
 
-# Hit each url with a GET request.
-
-# Commented this out because feedparser handles fetching the contents of feeds.
-
-# first_lines = [] # list to count responses
-# 
-# for url in urls:
-# 	response = requests.get(url)
-# 	# add the first line of each response to first_lines list
-# 	first_lines.append(response.text.partition('\n')[0])
-# 
-# logging.debug("Number of responses: " + str(len(first_lines))) # compare to number of urls
-
-# get current time and convert to Unix time
+# Initialize feed counter for debugging and/or logging
 feedcounter = 0
+
 current_time = time.mktime(time.localtime())
 
 for url in urls:
 	d = feedparser.parse(url)
 	if d.feed:
 		logging.debug(f"Parsing {d.feed.link}...")
-#	else:
-		# Throw an error, feed does not exist
+	else:
+		logging.error(f"{url} does not exist")
+		# Add options to handle this case in the future
 
-	# check existence of elements
+	try: # If I knew when d.entries[0] was evaluated, I could put just that in the try block.
+		published_time = d.entries[0].published_parsed
+		# Convert to Unix time
+		published_time = time.mktime(published_time)
 
-
-	published_time = d.entries[0].published_parsed
-	# Convert to Unix time
-	published_time = time.mktime(published_time)
-
-	elapsed_time = current_time - published_time
-	if elapsed_time < 86400:
-		print(f"{d.feed.link} has a new post.")
-		feedcounter += 1
-# 	elif elapsed_time > 86400:
-		# Do not include in digest
+		elapsed_time = current_time - published_time
+		if elapsed_time < 86400:
+			print(f"{d.feed.link} has a new post.")
+			feedcounter += 1
+	except IndexError:
+		logging.error("Feed has no entries.")
 
 logging.debug("Number of Feeds with new entries: " + str(feedcounter))
 
