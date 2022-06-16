@@ -8,6 +8,7 @@ import requests
 import time
 import feedparser
 import logging
+import time_check
 
 # Set logging to print debug messages
 logging.basicConfig(level=logging.DEBUG)
@@ -38,19 +39,26 @@ for url in urls:
 		logging.debug(f"Parsing {d.feed.link}...")
 	else:
 		logging.error(f"{url} does not exist")
-		# Add options to handle this case in the future
 
-	try: # If I knew when d.entries[0] was evaluated, I could put just that in the try block.
-		published_time = d.entries[0].published_parsed
-		# Convert to Unix time
-		published_time = time.mktime(published_time)
+	fresh_post = time_check.is_this_less_than_a_day_old(d.entries[0].published_parsed)
+	if fresh_post == True:
+		print(f"{d.feed.link} has a new post.")
+		feedcounter += 1
+	else:
+		print(f"{d.feed.link} does not have any new posts.")
 
-		elapsed_time = current_time - published_time
-		if elapsed_time < 86400:
-			print(f"{d.feed.link} has a new post.")
-			feedcounter += 1
-	except IndexError:
-		logging.error("Feed has no entries.")
+		# replicate all functionality of the old try block
+
+		# 		published_time = d.entries[0].published_parsed
+		# 		# Convert to Unix time
+		# 		published_time = time.mktime(published_time)
+		# 
+		# 		elapsed_time = current_time - published_time
+		# 		if elapsed_time < 86400:
+		# 			print(f"{d.feed.link} has a new post.")
+		# 			feedcounter += 1
+		# 	except IndexError:
+		# 		logging.error("Feed has no entries.")
 
 logging.debug("Number of Feeds with new entries: " + str(feedcounter))
 
